@@ -1,0 +1,17 @@
+[package]
+name = "whakaahua"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.8.1", features = [] }
+color-eyre = "0.6.3"
+image = "0.25.5"
+reqwest = { version = "0.12.12", default-features = false, features = [
+	"rustls-tls",
+] }
+serde = "1.0.217"
+tokio = { version = "1.43.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+tower-http = { version = "0.6.2", features = ["trace"] }
