@@ -4,6 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    naersk.url = "github:nix-community/naersk";
     # cargo-workspace.url = "github:maix-flake/cargo-ws";
     # cargo-semver-checks.url = "github:Maix0/cargo-semver-checks-flake";
   };
@@ -23,7 +24,14 @@
         if builtins.hasAttr name inputs
         then [(packageDef inputs.${name})]
         else [];
+      naersk' = pkgs.callPackage inputs.naersk {};
     in {
+      packages = rec {
+        default = whakaahua;
+        whakaahua = naersk'.buildPackage {
+          src = ./.;
+        };
+      };
       devShell = let
         rust_bin =
           pkgs.rust-bin.stable.latest.default;
